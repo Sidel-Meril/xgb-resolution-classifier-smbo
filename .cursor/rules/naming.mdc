@@ -1,0 +1,14 @@
+---
+description: Naming for ML stages, contract columns, and artifacts
+alwaysApply: true
+---
+
+# Naming
+
+- Modules, functions, contract columns, and artifact stems use `snake_case`.
+- Stage files are `NN_verb.py`, for example `01_get_data.py` and `02_engineer.py`.
+- The package name is the model name: `titanic_model`, `hottness_model`.
+- Every contract column has `dtype`, `nullable`, and `role`. A derived column also has `transform`, a short snake name such as `passthrough` or `fare_fixed_bins`.
+- One column has role `join_key`. One column has role `target`. Model inputs use `feature` or a feature-group role already used in that contract (`intrinsic`, `event_aware`).
+- A string model input also has role `categorical` and a `categories` list. A numeric code stays off the `categorical` role.
+- Artifacts sit in `data/`, `models/`, and `reports/` under a stem that names the table or model (`raw_passengers.parquet`, `eval_metrics.json`).

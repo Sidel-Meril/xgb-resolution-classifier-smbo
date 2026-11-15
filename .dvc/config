@@ -1,0 +1,6 @@
+[core]
+    remote = neon
+['remote "neon"']
+    url = s3://xgb-resolution-classifier-smbo
+    endpointurl = https://br-holy-field-atcdf9vm.storage.c-9.us-east-1.aws.neon.tech
+    region = us-east-1

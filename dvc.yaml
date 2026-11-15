@@ -1,0 +1,65 @@
+stages:
+  get_data:
+    cmd: uv run python src/resolution_classifier/01_get_data.py
+    deps:
+      - src/resolution_classifier/01_get_data.py
+      - src/resolution_classifier/db.py
+      - src/resolution_classifier/queries/pairs.sql
+    outs:
+      - data/pairs.parquet
+
+  engineer:
+    cmd: uv run python src/resolution_classifier/02_engineer.py
+    deps:
+      - src/resolution_classifier/02_engineer.py
+      - src/resolution_classifier/pair_encoder.py
+      - src/resolution_classifier/location_pair_features.py
+      - src/resolution_classifier/geo/normalize.py
+      - src/resolution_classifier/data_contract.py
+      - src/resolution_classifier/data_contract.yaml
+      - data/pairs.parquet
+    outs:
+      - data/model_frame.parquet
+
+  split:
+    cmd: uv run python src/resolution_classifier/03_split.py
+    deps:
+      - src/resolution_classifier/03_split.py
+      - src/resolution_classifier/training.py
+      - data/model_frame.parquet
+    outs:
+      - data/split.json
+
+  tune:
+    cmd: uv run python src/resolution_classifier/05_tune.py
+    deps:
+      - src/resolution_classifier/05_tune.py
+      - src/resolution_classifier/training.py
+      - data/model_frame.parquet
+      - data/split.json
+    outs:
+      - data/best_params.json
+
+  train:
+    cmd: uv run python src/resolution_classifier/04_train.py
+    deps:
+      - src/resolution_classifier/04_train.py
+      - src/resolution_classifier/training.py
+      - src/resolution_classifier/pair_encoder.py
+      - data/model_frame.parquet
+      - data/split.json
+      - data/best_params.json
+    outs:
+      - models/pairs_same_event/xgb_classifier.joblib
+
+  eval:
+    cmd: uv run python src/resolution_classifier/06_eval.py
+    deps:
+      - src/resolution_classifier/06_eval.py
+      - src/resolution_classifier/training.py
+      - src/resolution_classifier/pair_encoder.py
+      - data/model_frame.parquet
+      - data/split.json
+      - models/pairs_same_event/xgb_classifier.joblib
+    outs:
+      - reports/eval_metrics.json

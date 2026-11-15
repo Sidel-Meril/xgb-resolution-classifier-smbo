@@ -1,0 +1,21 @@
+---
+description: Basic checks before an ML pipeline change is done
+alwaysApply: true
+---
+
+# Basic checks
+
+Run both before finishing a change:
+
+```text
+uv run ruff check src tests
+uv run pytest
+```
+
+- The stage that writes the modeling table returns only a frame that has passed `DataContract.validate`.
+- A new or renamed column is added to `data_contract.yaml` and to the stage that produces it in the same change.
+- Tests cover behavior: contract rejection, engineered values, and a small train or eval run. Skip tests that only call a private helper.
+- A file under `queries/` is the extract. A demo stage may read it and load rows from a library. A warehouse stage executes it. Do not add a second way to fetch the same table.
+- Use the DVC remote already named in `.dvc/config`. A demo repo keeps that remote on a local directory.
+- `load_model` uses the local joblib when that file is present, and otherwise reads the same path from that DVC remote, cached by md5. An `s3://` URL needs `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
+- `make dvc-push` runs `dvc push` with variables from `.env`.

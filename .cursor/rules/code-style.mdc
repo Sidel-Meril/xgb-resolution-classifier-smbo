@@ -1,0 +1,23 @@
+---
+description: Python style for ML training repositories
+alwaysApply: true
+---
+
+# Code style
+
+- Python 3.13. Format and lint with Ruff: line length 100, rules E, F, I, UP.
+- Start modules with `from __future__ import annotations`.
+- Records use `@attrs.define(frozen=True, slots=True)`. Use `attrs`, not `dataclasses`.
+- A stage script keeps its behavior in `run` and the function `run` calls. `main` only parses arguments.
+- Build tabular columns with vectorized pandas or `numpy.select`. Skip `DataFrame.apply` and row loops.
+- `DataContract.validate` checks the frame it is given and returns that frame.
+- Import order is stdlib, third party, then the repo package.
+
+```python
+@attrs.define(frozen=True, slots=True)
+class Column:
+    name: str
+    dtype: str
+    nullable: bool = True
+    role: tuple[str, ...] = ()
+```

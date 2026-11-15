@@ -1,0 +1,62 @@
+[project]
+name = "xgb-resolution-classifier-smbo"
+version = "0.1.0"
+description = "Same-event pair resolution classifier: XGBoost + Platt calibration on candidate-pair features, scaffolded from ml-model-template-smbo."
+readme = "README.md"
+requires-python = ">=3.13"
+# Versions are pinned to the environment that produced the shipped model so a
+# refit reproduces its weights, SHAP values, and feature importances.
+dependencies = [
+    "attrs==26.1.0",
+    "dvc[s3]==3.67.1",
+    "joblib==1.6.0",
+    "numpy==2.5.3",
+    "optuna==5.0.0",
+    "pandas==3.0.6",
+    "psycopg[binary]==3.3.5",
+    "pyarrow==26.0.0",
+    "python-dotenv==1.2.3",
+    "pyyaml==6.0.3",
+    "rapidfuzz==3.14.6",
+    "scikit-learn==1.9.1",
+    "scipy==1.18.1",
+    "shap==0.54.1",
+    "xgboost==3.4.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29",
+    "jupyter>=1.1",
+    "matplotlib==3.11.2",
+    "pytest>=8",
+    "ruff>=0.8",
+    # Cursor's notebook runner detects ipykernel through pip. uv omits pip unless it is a dependency.
+    "pip",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# Stage modules are numbered (`01_get_data.py`) and are not importable names.
+"src/resolution_classifier/[0-9]*.py" = ["N999"]
+# Vendored verbatim from data-cleaning-smbo so a refit matches the shipped fit.
+"src/resolution_classifier/pair_encoder.py" = ["E402", "E501", "I001"]
+"src/resolution_classifier/location_pair_features.py" = ["E402", "E501", "I001"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "--import-mode=importlib"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/resolution_classifier"]

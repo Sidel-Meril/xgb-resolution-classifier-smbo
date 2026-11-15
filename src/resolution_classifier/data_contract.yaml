@@ -1,0 +1,202 @@
+# Modeling table for the same-event pair classifier.
+# One row per candidate pair. Columns and their order match
+# resolution_classifier.pair_encoder.FRAME_COLUMNS. The fitted ColumnTransformer
+# (pair_encoder.make_preprocess) does the numeric encoding; this contract checks
+# the engineered table that 02_engineer writes.
+version: 1
+mock_sql: src/resolution_classifier/queries/pairs.sql
+
+columns:
+  left_source:
+    dtype: string
+    nullable: false
+    role: [join_key]
+    transform: passthrough
+  left_id:
+    dtype: string
+    nullable: false
+    role: [join_key]
+    transform: passthrough
+  right_source:
+    dtype: string
+    nullable: false
+    role: [join_key]
+    transform: passthrough
+  right_id:
+    dtype: string
+    nullable: false
+    role: [join_key]
+    transform: passthrough
+
+  emb_score:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: pair_score
+  cross_score:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: pair_score
+  event_score:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: pair_score
+  deadline_score:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: pair_score
+  link_weight:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: pair_score
+
+  event_start_sim:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: interval_similarity
+  event_duration_sim:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: interval_similarity
+  event_interval_iou:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: interval_similarity
+  deadline_start_sim:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: interval_similarity
+  deadline_duration_sim:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: interval_similarity
+  deadline_interval_iou:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: interval_similarity
+
+  event_interval_defined:
+    dtype: float
+    nullable: false
+    role: [feature]
+    categories: [0, 1]
+    transform: interval_defined
+  deadline_interval_defined:
+    dtype: float
+    nullable: false
+    role: [feature]
+    categories: [0, 1]
+    transform: interval_defined
+
+  tfidf_shared_weight:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+  tfidf_weighted_overlap:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+  tfidf_weighted_jaccard:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+  tfidf_rare_shared_sum:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+  tfidf_max_shared_idf:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+  tfidf_unique_left_ratio:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+  tfidf_unique_right_ratio:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+  tfidf_shared_token_count:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+  tfidf_shared_concentration:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+  tfidf_soft_similarity:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: tfidf_pair
+
+  location_same_city:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: location_pair
+  location_same_country:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: location_pair
+  location_country_conflict:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: location_pair
+  location_top1_distance_km:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: location_pair
+  location_min_distance_km:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: location_pair
+  location_candidate_count_left:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: location_pair
+  location_candidate_count_right:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: location_pair
+  location_granularity_match:
+    dtype: float
+    nullable: true
+    role: [feature]
+    transform: location_pair
+
+  label:
+    dtype: int
+    nullable: false
+    role: [target]
+    categories: [0, 1]
+    transform: score_gt_half

@@ -1,0 +1,25 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.env
+.cache/
+dist/
+*.egg-info/
+
+# Pipeline artifacts are tracked by DVC, not git.
+/data
+/models/pairs_same_event
+reports/*
+!reports/.gitkeep
+!models/.gitkeep
+!data/.gitkeep
+
+.dvc/cache/
+.dvc/tmp/
+.dvc/config.local
+
+pytest.log
+pytest.err.log

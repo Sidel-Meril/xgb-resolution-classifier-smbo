@@ -1,0 +1,26 @@
+---
+description: Layout for ML training repositories
+alwaysApply: true
+---
+
+# Layout
+
+```text
+src/<package>/NN_<step>.py
+src/<package>/data_contract.py
+src/<package>/data_contract.yaml
+src/<package>/model.py
+src/<package>/paths.py
+src/<package>/queries/
+notebooks/
+dvc.yaml
+tests/
+data/  models/  reports/
+```
+
+- The numeric prefix is pipeline order. `dvc.yaml` has one stage per script, in that order.
+- `data_contract.py` is the column contract. `paths.py` is where artifact paths live. `model.py` loads the saved joblib for callers outside the DAG.
+- A stage reads the previous artifact and writes its own. Notebooks call those functions.
+- A helper used by one stage stays in that stage file. Add another module only for a client several stages share, such as a warehouse connection.
+- Add a stage with the next number, a `dvc.yaml` stage, and a Make target. Keep a single package under `src/`.
+- Match stage names already in the repo. Use this skeleton when adding a pipeline or starting a repo.
