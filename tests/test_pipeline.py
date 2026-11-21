@@ -40,6 +40,10 @@ def _raw_pairs(n_per_class: int = 40) -> pd.DataFrame:
     }
     for column in PAIR_SCORES:
         data[column] = np.clip(base + rng.normal(0, 0.1, n), 0, 1)
+    data["left_emb_000"] = np.where(labels, 0.2, -0.2)
+    data["right_emb_000"] = np.where(labels, 0.5, 0.1)
+    data["left_emb_383"] = np.where(labels, 0.0, 1.0)
+    data["right_emb_383"] = np.where(labels, 0.4, -0.4)
     data["score"] = np.where(labels, 0.9, 0.1)
     data["label"] = labels
     return pd.DataFrame(data)
@@ -53,6 +57,13 @@ def test_contract_validates_engineered_frame():
     assert contract.target() == "label"
     assert contract.keys() == list(KEYS)
     assert set(frame["label"].unique()) <= {0, 1}
+    assert "tfidf_soft_similarity" not in frame.columns
+    assert "left_emb_000" not in frame.columns
+    assert "right_emb_000" not in frame.columns
+    true_row = frame.loc[frame["label"] == 1].iloc[0]
+    assert true_row["emb_abs_diff_000"] == pytest.approx(0.3)
+    assert true_row["emb_abs_diff_383"] == pytest.approx(0.4)
+    assert bool(frame["emb_abs_diff_001"].isna().all())
 
 
 def test_contract_rejects_bad_label():

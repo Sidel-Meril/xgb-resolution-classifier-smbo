@@ -7,10 +7,13 @@ on `staging.pairs_generator_01_same_event` (`score > 0.5` is True). The booster
 is XGBoost with sigmoid (Platt) calibration; the saved bundle is
 `{"model": CalibratedClassifierCV, "encoder": ColumnTransformer}`.
 
-The training logic is ported verbatim from
-`data-cleaning-smbo/notebooks/features/xgb_scoring.ipynb`, and the pair feature
-builders (`pair_encoder.py`, `location_pair_features.py`, `geo/normalize.py`) are
-vendored verbatim from `data-cleaning-smbo` so a refit reproduces the shipped fit.
+The training logic is ported from
+`data-cleaning-smbo/notebooks/features/xgb_scoring.ipynb`. The pair feature
+builders (`pair_encoder.py`, `location_pair_features.py`, `geo/normalize.py`)
+are vendored from `data-cleaning-smbo`. Raw `left_emb_*` and `right_emb_*`
+stay on the extract. The model uses `emb_abs_diff_000` through
+`emb_abs_diff_383`, each `abs(right_emb_N - left_emb_N)`. Median imputation and
+min-max scaling apply to pair scores, those distances, and the location features.
 
 ## Pipeline
 
@@ -30,8 +33,9 @@ or `DATABASE_URL` in `.env`).
 
 The 100-trial Optuna search (`training.make_objective`, seeded `TPESampler`) is
 long-running and is **not** re-run. `05_tune.py` writes the best trial from the
-notebook (`training.FROZEN_BEST_PARAMS`) by default. Pass `--run` to search for
-real; the search is covered by a one-trial smoke test.
+last executed notebook (`training.FROZEN_BEST_PARAMS`) by default. That trial
+was fit on the previous tf-idf feature matrix. Pass `--run` to search on the
+absolute-difference matrix; the search is covered by a one-trial smoke test.
 
 ## Saved model
 
@@ -47,11 +51,10 @@ is read from the DVC remote named in `.dvc/config` (`neon`, an `s3://` Neon
 bucket) with `dvc.api.open` and cached by md5. The `s3://` remote needs
 `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (see `.env.example`).
 
-The shipped artifact is byte-for-byte the model `data-cleaning-smbo` hosts: it
-is copied from there and pushed to DVC without re-running tuning or training.
-`notebooks/parity_check.ipynb` proves the shipped model matches the
-`data-cleaning-smbo` model by raw booster bytes, feature importances, and SHAP
-values, and that the scaffolded pipeline reproduces the same fit.
+The joblib currently in `models/pairs_same_event/` is the previous tf-idf fit
+copied from `data-cleaning-smbo`. `notebooks/parity_check.ipynb` compares that
+file to the notebook artifact. A refit through stages 01-06 trains on the
+absolute-difference features; it will not match that previous joblib.
 
 Env overrides: `RESOLUTION_MODEL`, `RESOLUTION_REV`, `RESOLUTION_REPO`,
 `RESOLUTION_CACHE`.

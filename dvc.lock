@@ -5,40 +5,40 @@ stages:
     deps:
     - path: src/resolution_classifier/01_get_data.py
       hash: md5
-      md5: 2c01049d1ae01023a3ef68d6349d262e
-      size: 2708
+      md5: 5be20bfd3eaf404c33f27644d8a664a8
+      size: 2757
     - path: src/resolution_classifier/db.py
       hash: md5
       md5: b31dbae1abec80ce24d9d30e4cf839ba
       size: 2259
     - path: src/resolution_classifier/queries/pairs.sql
       hash: md5
-      md5: fcdc129a2ca702c01089b81a629518d7
-      size: 1295
+      md5: f9d4fde22f2d39d4f4b440e707c965a4
+      size: 18574
     outs:
     - path: data/pairs.parquet
       hash: md5
-      md5: d09c0ec1c377d3575a70169d8be945ae
-      size: 1219403
+      md5: e74835688ca02040adc9abb52b8bdbc0
+      size: 60194775
   engineer:
     cmd: uv run python src/resolution_classifier/02_engineer.py
     deps:
     - path: data/pairs.parquet
       hash: md5
-      md5: d09c0ec1c377d3575a70169d8be945ae
-      size: 1219403
+      md5: e74835688ca02040adc9abb52b8bdbc0
+      size: 60194775
     - path: src/resolution_classifier/02_engineer.py
       hash: md5
-      md5: 75145aa394589cd749ed4e75c5f2a0f5
-      size: 1722
+      md5: a4746fb0ed9792e051a779cd37062940
+      size: 1746
     - path: src/resolution_classifier/data_contract.py
       hash: md5
       md5: 3c253b292f1f8ff884b79babf0d86146
       size: 5973
     - path: src/resolution_classifier/data_contract.yaml
       hash: md5
-      md5: 6730e42ae0cbe76bfe80db80445ca0c1
-      size: 4601
+      md5: 6a76e148e58ff7782ccdb95a72882ec6
+      size: 47608
     - path: src/resolution_classifier/geo/normalize.py
       hash: md5
       md5: 370d025324fe117332968f34be6a67b0
@@ -49,43 +49,43 @@ stages:
       size: 9009
     - path: src/resolution_classifier/pair_encoder.py
       hash: md5
-      md5: f60178ba83cfc3ddce4a279e5ce1c712
-      size: 17556
+      md5: 7646391db97025063da4bbedb968ad29
+      size: 14516
     outs:
     - path: data/model_frame.parquet
       hash: md5
-      md5: c9506508950545947a86a108481eb6d8
-      size: 995898
+      md5: 4a37217741926a89b46bd1019e2db621
+      size: 72199182
   split:
     cmd: uv run python src/resolution_classifier/03_split.py
     deps:
     - path: data/model_frame.parquet
       hash: md5
-      md5: c9506508950545947a86a108481eb6d8
-      size: 995898
+      md5: 4a37217741926a89b46bd1019e2db621
+      size: 72199182
     - path: src/resolution_classifier/03_split.py
       hash: md5
       md5: 228c316a8c23988ac62b6a28d82798c1
       size: 1910
     - path: src/resolution_classifier/training.py
       hash: md5
-      md5: 9836549f2327235669b97cdb4e22ea81
-      size: 9407
+      md5: 03a93db2680766b31ea7667bc188640f
+      size: 9482
     outs:
     - path: data/split.json
       hash: md5
-      md5: e349f4bda0dfac5699eb86c18485ed22
+      md5: 766dba81d5b12528301a4dc194a573c8
       size: 125860
   tune:
     cmd: uv run python src/resolution_classifier/05_tune.py
     deps:
     - path: data/model_frame.parquet
       hash: md5
-      md5: c9506508950545947a86a108481eb6d8
-      size: 995898
+      md5: 4a37217741926a89b46bd1019e2db621
+      size: 72199182
     - path: data/split.json
       hash: md5
-      md5: e349f4bda0dfac5699eb86c18485ed22
+      md5: 766dba81d5b12528301a4dc194a573c8
       size: 125860
     - path: src/resolution_classifier/05_tune.py
       hash: md5
@@ -93,8 +93,8 @@ stages:
       size: 3451
     - path: src/resolution_classifier/training.py
       hash: md5
-      md5: 9836549f2327235669b97cdb4e22ea81
-      size: 9407
+      md5: 03a93db2680766b31ea7667bc188640f
+      size: 9482
     outs:
     - path: data/best_params.json
       hash: md5
@@ -109,11 +109,11 @@ stages:
       size: 404
     - path: data/model_frame.parquet
       hash: md5
-      md5: c9506508950545947a86a108481eb6d8
-      size: 995898
+      md5: 4a37217741926a89b46bd1019e2db621
+      size: 72199182
     - path: data/split.json
       hash: md5
-      md5: e349f4bda0dfac5699eb86c18485ed22
+      md5: 766dba81d5b12528301a4dc194a573c8
       size: 125860
     - path: src/resolution_classifier/04_train.py
       hash: md5
@@ -121,46 +121,46 @@ stages:
       size: 3205
     - path: src/resolution_classifier/pair_encoder.py
       hash: md5
-      md5: f60178ba83cfc3ddce4a279e5ce1c712
-      size: 17556
+      md5: 7646391db97025063da4bbedb968ad29
+      size: 14516
     - path: src/resolution_classifier/training.py
       hash: md5
-      md5: 9836549f2327235669b97cdb4e22ea81
-      size: 9407
+      md5: 03a93db2680766b31ea7667bc188640f
+      size: 9482
     outs:
     - path: models/pairs_same_event/xgb_classifier.joblib
       hash: md5
-      md5: 1c058bb17d3e8e685a5579d74ae3a557
-      size: 6843918
+      md5: fb1024d690a75854f8a0cc37393acf8e
+      size: 3467969
   eval:
     cmd: uv run python src/resolution_classifier/06_eval.py
     deps:
     - path: data/model_frame.parquet
       hash: md5
-      md5: c9506508950545947a86a108481eb6d8
-      size: 995898
+      md5: 4a37217741926a89b46bd1019e2db621
+      size: 72199182
     - path: data/split.json
       hash: md5
-      md5: e349f4bda0dfac5699eb86c18485ed22
+      md5: 766dba81d5b12528301a4dc194a573c8
       size: 125860
     - path: models/pairs_same_event/xgb_classifier.joblib
       hash: md5
-      md5: 1c058bb17d3e8e685a5579d74ae3a557
-      size: 6843918
+      md5: fb1024d690a75854f8a0cc37393acf8e
+      size: 3467969
     - path: src/resolution_classifier/06_eval.py
       hash: md5
       md5: e594fd26f8837f55ef18529480de6594
       size: 2873
     - path: src/resolution_classifier/pair_encoder.py
       hash: md5
-      md5: f60178ba83cfc3ddce4a279e5ce1c712
-      size: 17556
+      md5: 7646391db97025063da4bbedb968ad29
+      size: 14516
     - path: src/resolution_classifier/training.py
       hash: md5
-      md5: 9836549f2327235669b97cdb4e22ea81
-      size: 9407
+      md5: 03a93db2680766b31ea7667bc188640f
+      size: 9482
     outs:
     - path: reports/eval_metrics.json
       hash: md5
-      md5: 752eedb1916df19b53ec8c0f8f6278cb
-      size: 199
+      md5: 68a1e69663a6bdc869038c3ad0cf161c
+      size: 198

@@ -1,7 +1,8 @@
 """Stage 02: build the pair modeling table and validate it.
 
-``pair_encoder.pair_model_frame`` turns the raw pairs into interval, tf-idf, and
-location features in the contract column order. ``label`` is stored as 0/1.
+``pair_encoder.pair_model_frame`` turns the raw pairs into interval,
+embedding absolute-difference, and location features in the contract column
+order. ``label`` is stored as 0/1.
 Writes ``data/model_frame.parquet``.
 
 Usage::

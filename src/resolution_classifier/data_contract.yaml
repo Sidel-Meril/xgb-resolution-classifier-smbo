@@ -1,9 +1,11 @@
 # Modeling table for the same-event pair classifier.
 # One row per candidate pair. Columns and their order match
-# resolution_classifier.pair_encoder.FRAME_COLUMNS. The fitted ColumnTransformer
-# (pair_encoder.make_preprocess) does the numeric encoding; this contract checks
-# the engineered table that 02_engineer writes.
-version: 1
+# resolution_classifier.pair_encoder.FRAME_COLUMNS. Raw left_emb_* and
+# right_emb_* stay on the extract. The model columns are emb_abs_diff_000..383,
+# each abs(right_emb_N - left_emb_N).
+# The fitted ColumnTransformer (pair_encoder.make_preprocess) does the numeric
+# encoding; this contract checks the engineered table that 02_engineer writes.
+version: 3
 mock_sql: src/resolution_classifier/queries/pairs.sql
 
 columns:
@@ -27,7 +29,6 @@ columns:
     nullable: false
     role: [join_key]
     transform: passthrough
-
   emb_score:
     dtype: float
     nullable: true
@@ -53,7 +54,6 @@ columns:
     nullable: true
     role: [feature]
     transform: pair_score
-
   event_start_sim:
     dtype: float
     nullable: true
@@ -84,7 +84,6 @@ columns:
     nullable: true
     role: [feature]
     transform: interval_similarity
-
   event_interval_defined:
     dtype: float
     nullable: false
@@ -97,58 +96,2310 @@ columns:
     role: [feature]
     categories: [0, 1]
     transform: interval_defined
-
-  tfidf_shared_weight:
+  emb_abs_diff_000:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-  tfidf_weighted_overlap:
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_001:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-  tfidf_weighted_jaccard:
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_002:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-  tfidf_rare_shared_sum:
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_003:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-  tfidf_max_shared_idf:
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_004:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-  tfidf_unique_left_ratio:
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_005:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-  tfidf_unique_right_ratio:
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_006:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-  tfidf_shared_token_count:
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_007:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-  tfidf_shared_concentration:
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_008:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-  tfidf_soft_similarity:
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_009:
     dtype: float
     nullable: true
     role: [feature]
-    transform: tfidf_pair
-
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_010:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_011:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_012:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_013:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_014:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_015:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_016:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_017:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_018:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_019:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_020:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_021:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_022:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_023:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_024:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_025:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_026:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_027:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_028:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_029:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_030:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_031:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_032:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_033:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_034:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_035:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_036:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_037:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_038:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_039:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_040:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_041:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_042:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_043:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_044:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_045:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_046:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_047:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_048:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_049:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_050:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_051:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_052:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_053:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_054:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_055:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_056:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_057:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_058:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_059:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_060:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_061:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_062:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_063:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_064:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_065:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_066:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_067:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_068:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_069:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_070:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_071:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_072:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_073:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_074:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_075:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_076:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_077:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_078:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_079:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_080:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_081:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_082:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_083:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_084:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_085:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_086:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_087:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_088:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_089:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_090:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_091:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_092:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_093:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_094:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_095:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_096:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_097:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_098:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_099:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_100:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_101:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_102:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_103:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_104:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_105:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_106:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_107:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_108:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_109:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_110:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_111:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_112:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_113:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_114:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_115:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_116:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_117:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_118:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_119:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_120:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_121:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_122:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_123:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_124:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_125:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_126:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_127:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_128:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_129:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_130:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_131:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_132:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_133:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_134:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_135:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_136:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_137:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_138:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_139:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_140:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_141:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_142:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_143:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_144:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_145:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_146:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_147:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_148:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_149:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_150:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_151:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_152:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_153:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_154:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_155:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_156:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_157:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_158:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_159:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_160:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_161:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_162:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_163:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_164:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_165:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_166:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_167:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_168:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_169:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_170:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_171:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_172:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_173:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_174:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_175:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_176:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_177:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_178:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_179:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_180:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_181:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_182:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_183:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_184:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_185:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_186:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_187:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_188:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_189:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_190:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_191:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_192:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_193:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_194:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_195:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_196:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_197:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_198:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_199:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_200:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_201:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_202:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_203:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_204:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_205:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_206:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_207:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_208:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_209:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_210:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_211:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_212:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_213:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_214:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_215:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_216:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_217:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_218:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_219:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_220:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_221:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_222:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_223:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_224:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_225:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_226:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_227:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_228:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_229:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_230:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_231:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_232:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_233:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_234:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_235:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_236:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_237:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_238:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_239:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_240:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_241:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_242:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_243:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_244:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_245:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_246:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_247:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_248:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_249:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_250:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_251:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_252:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_253:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_254:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_255:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_256:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_257:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_258:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_259:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_260:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_261:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_262:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_263:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_264:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_265:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_266:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_267:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_268:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_269:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_270:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_271:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_272:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_273:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_274:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_275:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_276:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_277:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_278:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_279:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_280:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_281:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_282:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_283:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_284:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_285:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_286:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_287:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_288:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_289:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_290:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_291:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_292:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_293:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_294:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_295:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_296:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_297:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_298:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_299:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_300:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_301:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_302:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_303:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_304:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_305:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_306:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_307:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_308:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_309:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_310:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_311:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_312:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_313:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_314:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_315:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_316:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_317:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_318:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_319:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_320:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_321:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_322:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_323:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_324:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_325:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_326:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_327:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_328:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_329:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_330:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_331:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_332:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_333:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_334:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_335:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_336:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_337:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_338:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_339:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_340:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_341:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_342:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_343:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_344:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_345:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_346:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_347:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_348:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_349:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_350:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_351:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_352:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_353:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_354:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_355:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_356:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_357:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_358:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_359:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_360:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_361:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_362:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_363:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_364:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_365:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_366:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_367:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_368:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_369:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_370:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_371:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_372:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_373:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_374:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_375:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_376:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_377:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_378:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_379:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_380:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_381:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_382:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
+  emb_abs_diff_383:
+    dtype: float
+    nullable: true
+    role: [feature]
+    min: 0
+    transform: emb_abs_diff
   location_same_city:
     dtype: float
     nullable: true
@@ -193,7 +2444,6 @@ columns:
     nullable: true
     role: [feature]
     transform: location_pair
-
   label:
     dtype: int
     nullable: false

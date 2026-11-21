@@ -18,7 +18,7 @@ import pandas as pd
 from dotenv import load_dotenv
 
 from resolution_classifier.db import fetch_dataframe, get_connection, has_database_config
-from resolution_classifier.pair_encoder import PAIR_SCORES
+from resolution_classifier.pair_encoder import EMBEDDING_PAIR_COLUMNS, PAIR_SCORES
 from resolution_classifier.paths import RAW_PATH, SQL_PATH
 
 DATE_COLUMNS = tuple(
@@ -40,7 +40,7 @@ def load_pairs(sql_path: Path = SQL_PATH, conninfo: str | None = None) -> pd.Dat
     statement = sql_path.read_text(encoding="utf-8")
     with get_connection(conninfo) as connection:
         pairs = fetch_dataframe(connection, statement)
-    for column in (*PAIR_SCORES, *DATE_COLUMNS):
+    for column in (*PAIR_SCORES, *DATE_COLUMNS, *EMBEDDING_PAIR_COLUMNS):
         if column in pairs.columns:
             pairs[column] = pd.to_numeric(pairs[column], errors="coerce")
     pairs["score"] = pd.to_numeric(pairs["score"], errors="coerce")

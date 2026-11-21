@@ -1,8 +1,9 @@
 """Shared fit/split/metric helpers for the same-event pair classifier.
 
-Ported verbatim from ``notebooks/features/xgb_scoring.ipynb`` in
-``data-cleaning-smbo`` so stages 03-06 reproduce the booster, the Platt
-calibration, and the encoder that shipped ``models/pairs_same_event``.
+Ported from ``notebooks/features/xgb_scoring.ipynb`` in ``data-cleaning-smbo``
+so stages 03-06 fit the booster, the Platt calibration, and the encoder.
+The notebook's saved artifact is still the argmax (0.5) rule. Its threshold
+sweep is analysis only and is not part of the joblib.
 """
 
 from __future__ import annotations

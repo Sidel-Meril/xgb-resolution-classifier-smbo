@@ -17,7 +17,6 @@ dependencies = [
     "pyarrow==26.0.0",
     "python-dotenv==1.2.3",
     "pyyaml==6.0.3",
-    "rapidfuzz==3.14.6",
     "scikit-learn==1.9.1",
     "scipy==1.18.1",
     "shap==0.54.1",
